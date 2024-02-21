@@ -13,8 +13,6 @@ function App() {
 
   const updateTodo = (id, todo) => {
     setTodos((prev) => prev.map((prevTodo) => (prevTodo.id === id ? todo : prevTodo)))
-
-
   }
 
   const deleteTodo = (id) => {
@@ -42,8 +40,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos))
   }, [todos])
-
-
 
 
   return (
