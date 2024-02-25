@@ -1,12 +1,34 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { removeTodo } from '../features/todo/todoSlice'
 
-function Todos() {
-    const todos = useSelector(state => state.todos)
+function Todo() {
+    const todos = useSelector((state) => state.todos)
+    // so "todos" comes from "initialState"
     const dispatch = useDispatch()
-
     return (
+        // <>
+        //     <div>Todo</div>
+        //     {todos.map((todo) => (
+        //         <li key={todo.id}>{todo.text}
+        //             <button onClick={() => dispatch(removeTodo(todo.id))}>X</button>
+        //         </li>
+        //     ))}
+        // </>
+
+        // <>
+        //     <div>Todos</div>
+        //     <ul >
+        //         {todos.map((todo) => (
+        //             <li key={todo.id}>
+        //                 <div >{todo.text}</div>
+        //                 <button onClick={() => dispatch(removeTodo(todo.id))}>Del</button>
+        //             </li>
+        //         ))}
+        //     </ul>
+        // </>
+
+        // Alternative just for making it preety 
         <>
             <div>Todos</div>
             <ul className="list-none">
@@ -42,4 +64,4 @@ function Todos() {
     )
 }
 
-export default Todos
+export default Todo

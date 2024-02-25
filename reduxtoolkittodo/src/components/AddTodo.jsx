@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addTodo } from '../features/todo/todoSlice'
+import { addTodo } from "../features/todo/todoSlice"
 
+// if we want to add something to store we havw to "dispatch" it 
 function AddTodo() {
-
     const [input, setInput] = useState('')
     const dispatch = useDispatch()
+    // dispatch is a function that allows us to send an action (an object with a type property) to the Redux store.
+    // in another word Dispatcher make changes in values of Store using Reducer
 
     const addTodoHandler = (e) => {
         e.preventDefault()
         dispatch(addTodo(input))
-        setInput('')
+        // "input" is "action.payload"
+        setInput("")
     }
-
     return (
         <form onSubmit={addTodoHandler} className="space-x-3 mt-12">
             <input
@@ -25,9 +27,7 @@ function AddTodo() {
             <button
                 type="submit"
                 className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-            >
-                Add Todo
-            </button>
+            >Add Todo</button>
         </form>
     )
 }

@@ -7,7 +7,7 @@ function App() {
 
     return (
         <>
-            <h1>Learn about redux toolkit</h1>
+            <h1>redux toolkit</h1>
             {/* here we just import and use components */}
             < AddTodo />
             < Todo />
