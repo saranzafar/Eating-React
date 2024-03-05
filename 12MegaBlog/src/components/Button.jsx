@@ -6,7 +6,7 @@ function Button({
     bgColor = 'bg-blue-600',
     textColor = 'text-white',
     className = "",
-    ...props,
+    ...props
 }) {
 
     return (

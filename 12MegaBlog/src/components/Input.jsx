@@ -4,8 +4,8 @@ const Input = React.forwardRef(function Input({
     lable,
     type = 'text',
     className = "",
-    ...props,
-}, ref) {
+    ...props },
+    ref) {
     const id = useId()
     return (
         <div className='w-full'>
