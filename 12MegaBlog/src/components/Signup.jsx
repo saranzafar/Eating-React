@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import authservice from '../appwrite/auth'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../store/authSlice'
-import { Button, Input, Logo } from 'react-redux'
-import { UseDispatch } from 'react-redux'
+import { Button, Input, Logo } from './index'
+import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 
 
 function Signup() {
     const navigate = useNavigate()
     const [error, setError] = useState("")
-    const dispatch = UseDispatch()
+    const dispatch = useDispatch()
     const { register, handelSubmit } = useForm()
 
     const create = async (data) => {
@@ -46,7 +46,7 @@ function Signup() {
                 </p>
                 {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-                <form onSubmit={handleSubmit(create)}>
+                <form onSubmit={handelSubmit(create)}>
                     <div className='space-y-5'>
                         <Input
                             label="Full Name: "
