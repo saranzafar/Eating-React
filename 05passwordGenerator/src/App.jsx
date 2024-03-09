@@ -22,6 +22,7 @@ function App() {
 
     setPassword(pass);
   }, [length, numberAllowed, charAllowed], setPassword);
+  //we add dependencies for optimization
 
   const copyPasswordToClip = useCallback(() => {
     passwordRef.current?.select();
@@ -32,6 +33,7 @@ function App() {
   useEffect(() => {
     passwordGenerator();
   }, [length, numberAllowed, charAllowed, passwordGenerator]);
+  //we add dependencies so that if changing occures run function
 
   return (
     <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 my-8 text-orange-500 bg-gray-700 pb-4">
