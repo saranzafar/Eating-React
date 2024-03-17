@@ -13,7 +13,7 @@ function InputBox({
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-1 lg:px-8 ">
-                <div className="backdrop-blur-3xl p-5 rounded-lg sm:mx-auto sm:w-full sm:max-w-sm flex border justify-center align-middle">
+                <div className="backdrop-blur-3xl p-5 rounded-lg sm:mx-auto  sm:max-w-sm flex border justify-center align-middle flex-wrap">
                     <div className='w-1/2'>
                         <div className="flex items-center justify-between">
                             <label htmlFor="inputgroup" className="block font-medium leading-6 text-gray-900 text-lg">
@@ -28,7 +28,7 @@ function InputBox({
                                 value={amount}
                                 onChange={(e) => onAmountChange && onAmountChange(Number(e.target.value))}
                                 disabled={amountDisable}
-                                className=" outline-none backdrop-blur-3xl bg-transparent text-xl"
+                                className=" outline-none backdrop-blur-3xl bg-transparent text-xl sm: w-3/4"
                             />
                         </div>
                     </div>

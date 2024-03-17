@@ -1,5 +1,5 @@
 import Home from "./home/home";
 import Header from "./header/header";
-import Footer from "./footer/footer";
+import Footer from "./Footer/Footer";
 
-export {Home, Footer, Header}
+export { Home, Footer, Header }
