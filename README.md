@@ -23,20 +23,22 @@ Eating-React is a project aimed at mastering React by covering essential topics 
 - [Project Status](#project-status)
 - [Screenshots](#screenshots)
 
+```
 
 ## Installation
 
 Clone this repository
-```
 
 ```
 git clone https://github.com/saranzafar/Eating-React.git
+```
+
 Navigate to the project directory you want:
 
 ```
-
-```cd <Folder-name> 
+cd <Folder-name> 
 ```
+
 
 Install the necessary dependencies by running:
 
