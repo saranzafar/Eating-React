@@ -1,6 +1,5 @@
 # Eating-React
 
-```markdown
 # Project Title
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -10,7 +9,7 @@
 Eating-React is a project aimed at mastering React by covering essential topics such as Hooks, custom hooks, React routers, API handling, and more. The repository contains both learning materials and practical projects to reinforce understanding.
 
 ## Table of Contents
-
+``` 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
@@ -50,9 +49,9 @@ npm install
 
 Once you have installed the dependencies, you can start using the repository by:
 
-Exploring the learning materials in the provided folders.
-Running the projects to see the concepts in action.
-Experimenting with code in the "PlayGround" folder to reinforce your understanding.
+- Exploring the learning materials in the provided folders.
+- Running the projects to see the concepts in action.
+- Experimenting with code in the "PlayGround" folder to reinforce your understanding.
 
 
 ## Folder Structure
