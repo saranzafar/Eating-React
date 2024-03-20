@@ -28,9 +28,12 @@ Eating-React is a project aimed at mastering React by covering essential topics 
 
 Clone this repository
 ```
-git clone https://github.com/saranzafar/Eating-React.git
+
 ```
+git clone https://github.com/saranzafar/Eating-React.git
 Navigate to the project directory you want:
+
+```
 
 ```cd <Folder-name> 
 ```
