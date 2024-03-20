@@ -31,18 +31,16 @@ import App from './App.jsx'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route path='' element={<Home />} />
-      <Route path='about' element={<About />} >
-        {/* nesting the about: /about/hitesh */}
-        <Route path='hitesh' />
-      </Route>
-      <Route path='contact' element={<Contact />} />
-      <Route path='user/:userid' element={<User />} />
-      <Route
-        loader={githubInfoLoader}
-        path='github'
-        element={<GitHub />} />
+    <Route path='/' element={<Home />} />
+    <Route path='/about' element={<About />}>
+        {/* Nesting the about: /about/hitesh */}
+        <Route path='/about/hitesh' element={<GitHub />} />
     </Route>
+    <Route path='/contact' element={<Contact />} />
+    <Route path='/user/:userid' element={<User />} />
+    <Route loader={githubInfoLoader} path='/github' element={<GitHub />} />
+</Route>
+
   )
 )
 ReactDOM.createRoot(document.getElementById('root')).render(

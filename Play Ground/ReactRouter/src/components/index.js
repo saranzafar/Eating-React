@@ -4,7 +4,10 @@ import Footer from "./Footer";
 import GitHub from "./GitHub";
 import Header from "./Header";
 import Home from "./Home";
-import User from "./User";
+import { githubInfoLoader } from "./GitHub";
+import Gallery from "./Gallery";
+import ErrorPage from "./ErrorPage";
+import Portfolio from "./Portfolio";
 
 export {
     About,
@@ -13,5 +16,8 @@ export {
     GitHub,
     Header,
     Home,
-    User,
+    githubInfoLoader,
+    Gallery,
+    Portfolio,
+    ErrorPage,
 }
