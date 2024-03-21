@@ -1,7 +1,6 @@
 # Eating-React
 
-# Project Title
-
+## Licence 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
@@ -16,12 +15,9 @@ Eating-React is a project aimed at mastering React by covering essential topics 
 - [Technologies Used](#technologies-used)
 - [Contributing](#contributing)
 - [License](#license)
-- [Demo/Preview](#demo-preview)
 - [Acknowledgments](#acknowledgments)
 - [Contact/Support](#contact-support)
 - [Project Status](#project-status)
-- [Screenshots](#screenshots)
-
 ```
 
 ## Installation
@@ -93,7 +89,7 @@ This Repository is licensed under the [MIT License](https://opensource.org/licen
 
 ## Contact/Support
 
-- saranzafar736@gmail.com
+- My Email | saranzafar736@gmail.com
 
 ## Project Status
 
