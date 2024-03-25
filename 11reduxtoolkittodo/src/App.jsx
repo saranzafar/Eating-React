@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import AddTodo from './components/AddTodo'
-import Todo from './components/Todo'
+import Todo from './components/Todos'
 
 function App() {
 

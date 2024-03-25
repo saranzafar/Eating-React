@@ -18,9 +18,9 @@ function sayHello() {
 const todoSlice = createSlice({
     name: 'todo',// giving name to this reducer
     initialState, // provide initial state
-    reducers: {
+    reducers: { // actions
         // 5.
-        greeting: sayHello,// we can use it as refrence
+        greeting: sayHello,// passing refrence not calling function
         // is it long define function here 
         addTodo: (state, action) => {
             //state: it gives access of initial/previous state of "initialState" that will be changed soon. hand-to-hand situation.
