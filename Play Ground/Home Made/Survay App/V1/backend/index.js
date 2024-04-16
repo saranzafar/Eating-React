@@ -40,6 +40,5 @@ app.get('/api/jokes', (req, res) => {
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    // console.log(`serve at: http://localhost${port}`);
     console.log(`serve at: http://localhost:${port}`);
 })
