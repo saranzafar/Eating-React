@@ -52,7 +52,7 @@ Once you have installed the dependencies, you can start using the repository by:
 
 ## Folder Structure
 
-Folder Structure in every folder sohlud be slihtel different from this.
+Folder Structure of each folder may be slightely different from this.
 
 ```plaintext
 .
@@ -93,8 +93,8 @@ This Repository is licensed under the [MIT License](https://opensource.org/licen
 
 ## Project Status
 
-Indicate the current status of your project (e.g., in development, stable release, etc.).
+The  repository might be update in future
 
 ```
 
-Remember to replace the placeholder text with your actual project information. Additionally, customize the sections according to the specifics of your project.
+- Take this repository as Notes
