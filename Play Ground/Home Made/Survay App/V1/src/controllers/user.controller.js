@@ -65,7 +65,7 @@ const registerUser = AsyncHandler(async (req, res) => {
 
     // return response
     return res.status(201).json(
-        new ApiResponse(200, "User Registered Successfully", createdUser)
+        new ApiResponse(200, createdUser, "User Registered Successfully")
     );
 });
 
@@ -169,7 +169,6 @@ const refreshAccessToken = AsyncHandler(async (req, res) => {
         throw new ApiError(401, error?.messame || "Invalid Refresh Token")
     }
 })
-
 
 
 export {
