@@ -1,22 +1,19 @@
 import mongoose, { Schema } from "mongoose";
 
+const optionSchema = new Schema({
+    optionText: {
+        type: String,
+        required: true
+    },
+});
+
 const questionSchema = new Schema({
     question: {
         type: String,
         required: true
     },
-    options: [
-        {
-            optionText: {
-                type: Boolean,
-                required: true
-            },
-        }
-    ],
-    feedBack: {
-        type: String,
-    }
+    options: [optionSchema],
+}, { timestamps: true });
 
-}, { timestamps: true })
 
 export const Question = mongoose.model("Question", questionSchema)

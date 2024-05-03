@@ -20,6 +20,10 @@ const userSchema = new Schema({
         lowercase: true,
         trim: true,
     },
+    role: {
+        type: Boolean,
+        default: false,
+    },
     refreshToken: {
         type: String,
     }
@@ -37,7 +41,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 }
 
 userSchema.methods.generateAccessToken = async function () {
-    return await jwt.sign({
+    return jwt.sign({
         _id: this._id,
         email: this.email,
         name: this.name

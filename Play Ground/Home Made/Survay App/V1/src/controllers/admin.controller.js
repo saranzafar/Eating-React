@@ -1,15 +1,14 @@
-import { AsyncHandler } from "../utils/AsyncHandler";
-import { Question } from "../models/questions.model";
-import { ApiError } from "../utils/ApiError";
-import { ApiResponse } from "../utils/ApiResponse";
+import { AsyncHandler } from "../utils/AsyncHandler.js";
+import { Question } from "../models/questions.model.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { User } from "../models/user.model.js";
 
 const addQuestion = AsyncHandler(async (req, res) => {
-
     /*
     - take data
     - add to database
     */
-
     const { question, options, feedBack } = req.body
 
     if (!question || !options || options.length < 2) {
@@ -38,19 +37,51 @@ const addQuestion = AsyncHandler(async (req, res) => {
 const deleteQuestion = AsyncHandler(async (req, res) => {
     const { questionId } = req.params;
     if (!questionId?.trim()) {
-        throw new ApiError(400, "Question not be found")
+        throw new ApiError(400, "Question ID not provided");
     }
 
     let deletedQuestionResponse;
     try {
-        deletedQuestionResponse = await Question.deleteOne({ questionId });
+        deletedQuestionResponse = await Question.deleteOne({ _id: questionId });
+        if (deletedQuestionResponse.deletedCount === 0) {
+            throw new ApiError(404, "Question not found");
+        }
+        return res.status(200).json({ message: "Question deleted successfully" });
     } catch (error) {
-        throw new ApiError(501, "Error While deleting data from DB")
+        if (error instanceof ApiError) {
+            throw new ApiError(502, "Error While Deleting Question");
+        } else {
+            throw new ApiError(501, "Error while deleting data from DB");
+        }
     }
-    console.log("Deleted Question Response:", deletedQuestionResponse);
+});
+
+const updateAdminInfo = AsyncHandler(async (req, res) => {
+    const { name, password, email } = req.body;
+    if (!(name || password || email)) {
+        throw new ApiError(400, "Please provide Data");
+    }
+
+    const user = await User.findOneAndUpdate(
+        req.user?._id,
+        {
+            $set:
+            {
+                name,
+                password,
+                email,
+                role: true
+            }
+        },
+        { new: true },
+    ).select("-password")
+
+    return res.status(200)
+        .json(new ApiResponse(200, user, "Account Details Updated Successfully"))
 })
 
 export {
     addQuestion,
     deleteQuestion,
+    updateAdminInfo,
 }

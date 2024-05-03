@@ -1,17 +1,14 @@
 import mongoose, { Schema } from "mongoose";
 
 const responseSchema = new Schema({
-    questionId: {
+    question: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Questions',
-        required: true
+        ref: 'Question',
     },
-    selectedOption: [{
-        optionText: {
-            type: String,//need to be boolean
-            required: true
-        },
-    },]
-}, { timestamps: true })
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }
+}, { timestamps: true });
 
 export const Response = mongoose.model('Response', responseSchema)   

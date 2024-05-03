@@ -7,15 +7,15 @@ import jwt from "jsonwebtoken"
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
         const user = await User.findById(userId)
-        const accessToken = user.generateAccessToken()
-        const refreshToken = user.generateRefreshToken()
+        const accessToken = await user.generateAccessToken()
+        const refreshToken = await user.generateRefreshToken()
 
         user.refreshToken = refreshToken
         user.save({ validateBeforeSave: false })
         return { accessToken, refreshToken }
 
     } catch (error) {
-
+        throw new ApiError(502, "Error while generating tokens")
     }
 }
 
@@ -30,7 +30,7 @@ const registerUser = AsyncHandler(async (req, res) => {
 
     //post request using raw data + json formate in postman
 
-    const { name, password, email } = req.body;
+    const { name, password, email, role } = req.body;
 
     // validation
     if (!name || !password || !email) {
@@ -50,8 +50,11 @@ const registerUser = AsyncHandler(async (req, res) => {
     const user = await User.create({
         name,
         password,
-        email
+        email,
+        role
     });
+
+    await generateAccessAndRefreshTokens(user._id)
 
     // remove password field from response
     const createdUser = await User.findById(user._id).select(
@@ -101,13 +104,14 @@ const loginUser = AsyncHandler(async (req, res) => {
                 {
                     user: logedinUser, accessToken
                 },
-                "User Logedin Successfully"
+                "User LoggedIn Successfully"
             )
         )
 })
 
 const logoutUser = AsyncHandler(async (req, res) => {
     // why we are not accessing cookies to access user?
+    //due to reuse
     User.findByIdAndUpdate(
         req.user._id,
         {
@@ -123,14 +127,14 @@ const logoutUser = AsyncHandler(async (req, res) => {
         secure: true
     }
 
-    return res.statu(200)
+    return res.status(200)
         .clearCookie("accessToken", options)
         .clearCookie("refreshToken", options)
         .json(new ApiResponse(200, {}, "User Loged Out"))
 })
 
 const refreshAccessToken = AsyncHandler(async (req, res) => {
-    const incommingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+    const incommingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
     if (!incommingRefreshToken) {
         throw new ApiError(401, "Unauthorized Access")
     }
