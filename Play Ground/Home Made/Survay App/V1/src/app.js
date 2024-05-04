@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 // Importing routes
 import userRoutes from "./routes/user.routes.js";
 import adminRoutes from './routes/admin.routes.js'
+import responseRoutes from "./routes/response.routes.js"
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.use(cookieParser());
 // Routes declaration
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/response", responseRoutes);
 
 export { app };

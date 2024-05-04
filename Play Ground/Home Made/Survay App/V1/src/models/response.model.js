@@ -1,14 +1,18 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from 'mongoose';
 
-const responseSchema = new Schema({
+const responseSchema = new mongoose.Schema({
     question: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Question',
+        type: Object,
+        required: true
+    },
+    selectedOption: {
+        type: Object,
+        required: true
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: Object,
+        required: true
     }
 }, { timestamps: true });
 
-export const Response = mongoose.model('Response', responseSchema)   
+export const Answer = mongoose.model('Answer', responseSchema);
