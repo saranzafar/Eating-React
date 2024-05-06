@@ -1,26 +1,25 @@
-import React from 'react';
-import { useRouteError } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function PageNotFound() {
-    const error = useRouteError();
-
-    // Check if error exists before accessing its properties
-    const errorMessage = error ? (error.statusText || error.message) : "Unknown error";
 
     return (
-        <div className="flex items-center justify-center h-screen bg-gray-100">
-            <div className="bg-white rounded-lg shadow-md p-8">
-                <h1 className="text-3xl font-semibold text-gray-800 mb-4">Oops!</h1>
-                <p className="text-lg text-gray-600 mb-4">Sorry, This Page is not found.</p>
-                <p className="text-sm text-gray-600 mb-8">
-                    <i>{errorMessage}</i>
+        <div className="py-10">
+            <div className="text-center">
+                <p className="text-base font-semibold text-gray-600">404</p>
+                <h1 className="mt-2 text-3xl font-bold tracking-tight text-primary-600 sm:text-5xl">
+                    Page not found
+                </h1>
+                <p className="mt-4 text-base leading-7 text-gray-600">
+                    Sorry, we couldn&apos:t find the page you&apos;re looking for.
                 </p>
-                <button
-                    onClick={() => window.location.reload()}
-                    className="bg-primary-700 text-white py-2 px-4 rounded hover:bg-primary-600 focus:outline-none focus:bg-blue-600"
-                >
-                    Reload Page
-                </button>
+                <div className="mt-4 flex items-center justify-center gap-x-3">
+                    <Link
+                        to={"/"}
+                        className="inline-flex items-center rounded-md border border-primary-600 px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                    >
+                        Go back
+                    </Link>
+                </div>
             </div>
         </div>
     );

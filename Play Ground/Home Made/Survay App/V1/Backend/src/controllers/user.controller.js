@@ -54,11 +54,10 @@ const registerUser = AsyncHandler(async (req, res) => {
         role
     });
 
-    await generateAccessAndRefreshTokens(user._id)
 
     // remove password field from response
     const createdUser = await User.findById(user._id).select(
-        "-password"
+        "-password -_id -createdAt -updatedAt"
     );
 
     // check for user creation
@@ -74,7 +73,14 @@ const registerUser = AsyncHandler(async (req, res) => {
 
 const loginUser = AsyncHandler(async (req, res) => {
     const { email, password } = req.body
-    if (!(email || password)) {
+    console.log(email, "\n", password);
+    const stripWhitespace = (str) => {
+        return str.replace(/\s/g, '');
+    };
+    const strippedPassword = stripWhitespace(password);
+    console.log(email, "\n", strippedPassword);
+
+    if (!(email || strippedPassword)) {
         throw new ApiError(200, "Please enter your Email and Password!")
     }
 
@@ -83,21 +89,23 @@ const loginUser = AsyncHandler(async (req, res) => {
         throw new ApiError(200, "User does't exist")
     }
 
-    const isPasswordValid = await user.isPasswordCorrect(password)
+    const isPasswordValid = await user.isPasswordCorrect(strippedPassword)
     if (!isPasswordValid) {
         throw new ApiError(200, "Incorrect Password")
     }
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
-    const logedinUser = await User.findById(user._id).select("-password -refreshToken")
+    const logedinUser = await User.findById(user._id).
+        select("-password -refreshToken -_id -createdAt -updatedAt")
 
     const options = {
         httpOnly: true,
         secure: true
     }
-    return res.status(200)
+    return res
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
+        .status(200)
         .json(
             new ApiResponse(
                 200,
@@ -106,7 +114,8 @@ const loginUser = AsyncHandler(async (req, res) => {
                 },
                 "User LoggedIn Successfully"
             )
-        )
+        );
+
 })
 
 const logoutUser = AsyncHandler(async (req, res) => {

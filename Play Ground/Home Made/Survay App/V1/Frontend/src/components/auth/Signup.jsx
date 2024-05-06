@@ -4,12 +4,15 @@ import { ButtonSm, Input } from '../common';
 import axios from 'axios';
 import conf from '../../conf/conf';
 import { Alert } from '../common';
+import { signup } from '../../store/features/authSlics';
+import { useDispatch } from 'react-redux';
 
 function Signup() {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
     const [buttonAppearence, setButtonAppearence] = useState(false)
     const [alertAppearence, setAlertAppearence] = useState(false)
     const [alertMessage, setAlertMessage] = useState({ message: "", color: "" })
+    const dispatch = useDispatch()
 
     const handleChange = (field, value) => {
         setFormData({ ...formData, [field]: value });
@@ -18,31 +21,27 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            setButtonAppearence(true)
-            const response = await axios.post(`${conf.databaseUrl}users/register`, formData)
-            console.log("response.data = ", response.data);
-            if (response.data != {}) {
-                alertAppearence(true)
-                let tempColor = "";
-                if (response.statuscode <= 300) {
-                    tempColor = "green"
-                } else {
-                    tempColor = "red"
-                }
-                setAlertMessage({ message: e.data.data, color: tempColor })
-            }
-
-        } catch (error) {
-            setAlertAppearence(true)
-            setAlertMessage({ message: "Error While Fetching Data From Database", color: "red" })
-            setTimeout(() => {
-                setAlertAppearence(false)
-            }, 5000);
-        }
-        finally {
-            setButtonAppearence(false)
-        }
+        setButtonAppearence(true)
+        await axios.post(`${conf.databaseUrl}users/register`, formData)
+            .then((response) => {
+                console.log("response.data = ", response.data);
+                setAlertAppearence(true)
+                setAlertMessage({ color: "green", message: response.data.data })
+                setButtonAppearence(false)
+                setTimeout(() => {
+                    setAlertAppearence(false)
+                }, 5000);
+                dispatch(signup(response.data.message))
+            })
+            .catch((err) => {
+                setAlertAppearence(true)
+                console.log("Error = ", err.message);
+                setAlertMessage({ color: "red", message: err.message })
+                setButtonAppearence(false)
+                setTimeout(() => {
+                    setAlertAppearence(false)
+                }, 5000);
+            })
     };
 
 
@@ -89,10 +88,13 @@ function Signup() {
                                     text="Create Account"
                                     type='submit'
                                     loadingText={buttonAppearence}
-
                                 />
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Already have an account? <Link to="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</Link>
+                                    Already have an account?
+                                    <Link
+                                        to="/login"
+                                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                                    >Login here</Link>
                                 </p>
                             </form>
                         </div>

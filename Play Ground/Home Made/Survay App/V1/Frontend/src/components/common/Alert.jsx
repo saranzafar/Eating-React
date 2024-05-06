@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CheckCircle, X } from 'lucide-react'
 
-function Success({ message = "Everything Is", color = "green" }) {
+function Success({ message = "Everything Is Ok", color = "green" }) {
     const [deleteAlert, setDeleteAlert] = useState(true)
     const handelClick = () => {
         setDeleteAlert(false)
@@ -9,7 +9,7 @@ function Success({ message = "Everything Is", color = "green" }) {
     return (
         <>
             {deleteAlert ? (
-                <div className={`rounded-md border-l-4 border-${color}-500$  bg-${color}-100 p-4`}>
+                <div className={`rounded-md border-l-4 border-${color}-500$  p-4 bg-${color}-100 p-4`}>
                     <div className="flex items-center justify-between space-x-4">
                         <div>
                             <CheckCircle className={`h-6 w-6 text-${color}-600`} />

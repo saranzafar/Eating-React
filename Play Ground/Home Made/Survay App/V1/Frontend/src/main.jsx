@@ -6,18 +6,48 @@ import 'flowbite';
 import { Provider } from 'react-redux';
 import store from './store/store.js';
 
-import { Route, createBrowserRouter, RouterProvider, createRoutesFromElements } from 'react-router-dom';
-import { Signup,PageNotFound } from "./pages";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Signup, PageNotFound, Login } from "./pages";
+import SurveyPage from './pages/SurveyPage.jsx';
+import AuthLayout from './components/auth/AuthLayout.jsx';
 
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<App />}>
-      <Route path='/' element={<Signup />} />
-      <Route path="*" element={<PageNotFound />} />
-    </Route>
-  )
-)
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <SurveyPage />,
+      },
+      {
+        path: '/login',
+        element: (
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/signup",
+        element: (
+          <AuthLayout authentication={false}>
+            <Signup />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "*",
+        element: (
+          <AuthLayout authentication={false}>
+            <PageNotFound />
+          </AuthLayout>
+        ),
+      },
+    ]
+  }
+])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
