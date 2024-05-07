@@ -3,7 +3,7 @@ import { ButtonSm, Input } from '../common';
 import axios from 'axios';
 import conf from '../../conf/conf';
 import { Alert } from '../common';
-import { signup } from '../../store/features/authSlics';
+import { sigin } from '../../store/features/authSlics';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -22,8 +22,6 @@ function Login() {
         e.preventDefault();
 
         setButtonAppearence(true)
-        console.log("email =", formData.email);
-        console.log("password =", formData.password);
         await axios.post(`${conf.databaseUrl}users/login`, formData)
             .then((response) => {
                 console.log("response.data = ", response.data);
@@ -33,8 +31,7 @@ function Login() {
                 setTimeout(() => {
                     setAlertAppearence(false)
                 }, 5000);
-                dispatch(signup(response.data.message))
-                localStorage.setItem("userData", JSON.stringify(response.data.message))
+                dispatch(sigin(response.data.message))
             })
             .catch((err) => {
                 setAlertAppearence(true)
@@ -80,7 +77,7 @@ function Login() {
                                 </div>
 
                                 <ButtonSm
-                                    text="Create Account"
+                                    text="Login"
                                     type='submit'
                                     loadingText={buttonAppearence}
                                 />

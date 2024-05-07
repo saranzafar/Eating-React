@@ -9,17 +9,19 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        signup: (state, action) => {
+        sigin: (state, action) => {
             const data = {
                 credentials: action.payload,
             }
+
             state.status = true
             state.userData.push(data)
+            sessionStorage.setItem("userData", JSON.stringify(data))
             console.log("slice data = ", data);
         }
 
     }
 })
 
-export const { signup } = authSlice.actions
+export const { sigin } = authSlice.actions
 export default authSlice.reducer

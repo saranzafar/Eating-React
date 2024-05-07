@@ -7,8 +7,7 @@ import { Provider } from 'react-redux';
 import store from './store/store.js';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Signup, PageNotFound, Login } from "./pages";
-import SurveyPage from './pages/SurveyPage.jsx';
+import { Signup, PageNotFound, Login, LandingPage } from "./pages";
 import AuthLayout from './components/auth/AuthLayout.jsx';
 
 
@@ -19,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <SurveyPage />,
+        element: <LandingPage />,
       },
       {
         path: '/login',
@@ -31,6 +30,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
+        element: (
+          <AuthLayout authentication={false}>
+            <Signup />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/home",
         element: (
           <AuthLayout authentication={false}>
             <Signup />

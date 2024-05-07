@@ -4,15 +4,13 @@ import { ButtonSm, Input } from '../common';
 import axios from 'axios';
 import conf from '../../conf/conf';
 import { Alert } from '../common';
-import { signup } from '../../store/features/authSlics';
-import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
     const [buttonAppearence, setButtonAppearence] = useState(false)
     const [alertAppearence, setAlertAppearence] = useState(false)
     const [alertMessage, setAlertMessage] = useState({ message: "", color: "" })
-    const dispatch = useDispatch()
 
     const handleChange = (field, value) => {
         setFormData({ ...formData, [field]: value });
@@ -31,7 +29,7 @@ function Signup() {
                 setTimeout(() => {
                     setAlertAppearence(false)
                 }, 5000);
-                dispatch(signup(response.data.message))
+                useNavigate("/login")
             })
             .catch((err) => {
                 setAlertAppearence(true)
