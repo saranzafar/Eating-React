@@ -1,23 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Loader } from '../common'
+import Cookies from 'js-cookie'
 
 
-function AuthLayout({ children, authentication = true }) {
+function AuthLayout({ children }) {
     const navigate = useNavigate()
     const [loader, setLoader] = useState(true)
-    const authStatus = useSelector(state => state.auth.status)
+    const token = Cookies.get("accessToken")
 
     useEffect(() => {
-        // make it more easy 
-        if (authentication && authStatus !== authentication) {
-            navigate('/login')
-        } else if (!authentication && authStatus !== authentication) {
+        if (token) {
+            navigate('/home')
+        } else if (!token) {
             navigate('/')
         }
         setLoader(false)
-    }, [authStatus, navigate, authentication])
-    return loader ? <h1>Loading...</h1> : <>{children}</>
+    }, [navigate, token])
+    return loader ?
+        <div className='w-100 vh-100 flex justify-center '>
+            <Loader />
+        </div>
+        : <>{children}</>
 }
 
 export default AuthLayout

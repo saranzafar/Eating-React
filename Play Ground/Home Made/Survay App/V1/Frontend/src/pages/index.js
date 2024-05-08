@@ -3,6 +3,7 @@ import Login from './LoginPage'
 import PageNotFound from "./PageNotFound";
 import Header from "./Header";
 import LandingPage from "./LandingPage";
+import HomePage from "./HomePage"
 
 export {
     Signup,
@@ -10,4 +11,5 @@ export {
     PageNotFound,
     Header,
     LandingPage,
+    HomePage,
 }

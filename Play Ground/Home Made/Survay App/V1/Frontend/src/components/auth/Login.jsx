@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { ButtonSm, Input } from '../common';
+import { ButtonSm, Input, Alert } from '../common';
 import axios from 'axios';
 import conf from '../../conf/conf';
-import { Alert } from '../common';
 import { sigin } from '../../store/features/authSlics';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Login() {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -13,6 +13,7 @@ function Login() {
     const [alertAppearence, setAlertAppearence] = useState(false)
     const [alertMessage, setAlertMessage] = useState({ message: "", color: "" })
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleChange = (field, value) => {
         setFormData({ ...formData, [field]: value });
@@ -24,14 +25,15 @@ function Login() {
         setButtonAppearence(true)
         await axios.post(`${conf.databaseUrl}users/login`, formData)
             .then((response) => {
-                console.log("response.data = ", response.data);
+                Cookies.set('accessToken', response.data.message.accessToken, { expires: 7 });
                 setAlertAppearence(true)
                 setAlertMessage({ color: "green", message: response.data.data })
                 setButtonAppearence(false)
                 setTimeout(() => {
                     setAlertAppearence(false)
                 }, 5000);
-                dispatch(sigin(response.data.message))
+                dispatch(sigin(response.data.message.user))
+                navigate("/home")
             })
             .catch((err) => {
                 setAlertAppearence(true)
@@ -43,6 +45,8 @@ function Login() {
                 }, 10000);
             })
     };
+
+
 
 
     return (
@@ -82,7 +86,7 @@ function Login() {
                                     loadingText={buttonAppearence}
                                 />
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Don't have an account?
+                                    Not have an account?
                                     <Link
                                         to="/signup"
                                         className="pl-1 font-medium text-primary-600 hover:underline dark:text-primary-500">

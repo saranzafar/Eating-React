@@ -62,9 +62,6 @@ const getResponse = AsyncHandler(async (req, res) => {
 
         // Return the responses
         return res.status(200).json(new ApiResponse(200, responses, 'Responses fetched successfully'));
-    // } catch (error) {
-    //     // Handle errors
-    //     throw new ApiError(500, 'Error while fetching responses');
     // }
 });
 

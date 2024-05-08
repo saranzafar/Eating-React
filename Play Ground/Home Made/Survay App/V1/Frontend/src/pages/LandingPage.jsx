@@ -1,10 +1,29 @@
-import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import conf from '../conf/conf';
+import { logout } from '../store/features/authSlics';
+
 
 function LandingPage() {
-    const storedData = JSON.parse(localStorage?.getItem("userData"));
-    console.log(storedData.accessToken);
+    const dispatch = useDispatch()
 
+    const storedData = Cookies.get("accessToken")
+    const handelLogout = async () => {
+        await axios.post(`${conf.databaseUrl}users/logout`, {}, {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('accessToken')}`,
+            },
+        })
+            .then((response) => {
+                sessionStorage.clear()
+                Cookies.remove("accessToken")
+                console.log(response.data);
+                dispatch(logout())
+                window.location.reload()
+            })
+    }
     return (
         <>
             <div className=' h-auto'>
@@ -14,10 +33,15 @@ function LandingPage() {
                             <h1 className="text-3xl font-extrabold sm:text-5xl">Welcome to My
                                 <strong className="font-extrabold text-primary-700 sm:block">Survey App!</strong>
                             </h1>
-                            {!storedData && <p className="mt-4 sm:text-xl/relaxed">
+                            {storedData && <p className="mt-4 sm:text-xl/relaxed">
                                 Submint surveys on random, common, and interesting topics. Dive into my MERN-based platform to share insights. Join me in shaping conversations and uncovering trends with your engaging in this app.
+                                <span
+                                    className=' text-purple-700 cursor-pointer hover:underline'
+                                    onClick={handelLogout}
+                                >
+                                    Logout</span>
                             </p>}
-                            {storedData && <p className="mt-4 sm:text-xl/relaxed">Please login or signup to fill the survey.</p>}
+                            {!storedData && <p className="mt-4 sm:text-xl/relaxed">Please login or signup to fill the survey.</p>}
 
                             <div className="mt-8 flex flex-wrap justify-center gap-4">
                                 <div

@@ -1,5 +1,4 @@
-// Input.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function Input({ type, eye, label, value, onChange, ...props }) {
     const [showPassword, setShowPassword] = useState(false);

@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ButtonSm, Input } from '../common';
 import axios from 'axios';
 import conf from '../../conf/conf';
 import { Alert } from '../common';
-import { useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
     const [buttonAppearence, setButtonAppearence] = useState(false)
     const [alertAppearence, setAlertAppearence] = useState(false)
     const [alertMessage, setAlertMessage] = useState({ message: "", color: "" })
+    const navigate = useNavigate()
 
     const handleChange = (field, value) => {
         setFormData({ ...formData, [field]: value });
@@ -29,7 +29,7 @@ function Signup() {
                 setTimeout(() => {
                     setAlertAppearence(false)
                 }, 5000);
-                useNavigate("/login")
+                navigate("/login") //redirection
             })
             .catch((err) => {
                 setAlertAppearence(true)

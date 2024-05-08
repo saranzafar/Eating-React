@@ -73,12 +73,10 @@ const registerUser = AsyncHandler(async (req, res) => {
 
 const loginUser = AsyncHandler(async (req, res) => {
     const { email, password } = req.body
-    console.log(email, "\n", password);
     const stripWhitespace = (str) => {
         return str.replace(/\s/g, '');
     };
     const strippedPassword = stripWhitespace(password);
-    console.log(email, "\n", strippedPassword);
 
     if (!(email || strippedPassword)) {
         throw new ApiError(200, "Please enter your Email and Password!")
@@ -139,7 +137,7 @@ const logoutUser = AsyncHandler(async (req, res) => {
     return res.status(200)
         .clearCookie("accessToken", options)
         .clearCookie("refreshToken", options)
-        .json(new ApiResponse(200, {}, "User Loged Out"))
+        .json(new ApiResponse(200, {}, "LogOut Successfully"))
 })
 
 const refreshAccessToken = AsyncHandler(async (req, res) => {

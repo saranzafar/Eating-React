@@ -7,8 +7,10 @@ import { Provider } from 'react-redux';
 import store from './store/store.js';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Signup, PageNotFound, Login, LandingPage } from "./pages";
+import { Signup, PageNotFound, Login, LandingPage, HomePage } from "./pages";
 import AuthLayout from './components/auth/AuthLayout.jsx';
+
+import Card from './components/common/Card.jsx';
 
 
 const router = createBrowserRouter([
@@ -18,38 +20,42 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <LandingPage />,
+        element: (
+          <LandingPage />
+        ),
+      },
+      {
+        path: "/card",
+        element: (
+          <AuthLayout>
+            <Card />
+          </AuthLayout>
+        ),
       },
       {
         path: '/login',
         element: (
-          <AuthLayout authentication={false}>
-            <Login />
-          </AuthLayout>
+          <Login />
         )
       },
       {
         path: "/signup",
         element: (
-          <AuthLayout authentication={false}>
-            <Signup />
-          </AuthLayout>
+          <Signup />
         ),
       },
       {
         path: "/home",
         element: (
-          <AuthLayout authentication={false}>
-            <Signup />
+          <AuthLayout >
+            <HomePage />
           </AuthLayout>
         ),
       },
       {
         path: "*",
         element: (
-          <AuthLayout authentication={false}>
-            <PageNotFound />
-          </AuthLayout>
+          <PageNotFound />
         ),
       },
     ]
