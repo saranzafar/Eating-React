@@ -34,6 +34,14 @@ const addQuestion = AsyncHandler(async (req, res) => {
         )
 });
 
+const getQuestion = AsyncHandler(async (req, res) => {
+    const response = await Question.find()
+    if (!response.length) {
+        return res.status(404).json(new ApiResponse(404, null, 'No Question found'));
+    }
+    return res.status(200).json(new ApiResponse(200, response, 'Question(s) fetched successfully'));
+});
+
 const deleteQuestion = AsyncHandler(async (req, res) => {
     const { questionId } = req.params;
     if (!questionId?.trim()) {
@@ -82,6 +90,7 @@ const updateAdminInfo = AsyncHandler(async (req, res) => {
 
 export {
     addQuestion,
+    getQuestion,
     deleteQuestion,
     updateAdminInfo,
 }

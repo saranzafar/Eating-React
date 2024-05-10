@@ -1,12 +1,16 @@
+import { SurveyQuestion, Wrapper } from '../components/common'
 import { LandingPage } from './index'
 
 function HomePage() {
 
     return (
-        <div>
-            <LandingPage />
-            <h1>welcom devid</h1>
-        </div>
+        <Wrapper>
+            <div>
+                <LandingPage />
+                <SurveyQuestion />
+            </div>
+        </Wrapper>
+
     )
 }
 

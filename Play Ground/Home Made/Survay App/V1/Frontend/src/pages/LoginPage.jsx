@@ -1,9 +1,11 @@
-import React from 'react'
 import { Login } from '../components/auth'
+import { Wrapper } from '../components/common'
 
 function LoginPage() {
     return (
-        <Login />
+        <Wrapper>
+            <Login />
+        </Wrapper>
     )
 }
 

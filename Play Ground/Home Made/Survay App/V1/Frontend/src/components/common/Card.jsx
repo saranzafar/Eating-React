@@ -6,17 +6,16 @@ import Cookies from 'js-cookie';
 const Card = () => {
 
     useEffect(() => {
-        // const accessToken = Cookies.get("accessToken")
-        // console.log("accessToken = ", accessToken);
-
         const getQuestions = async () => {
             try {
-                const response = await axios.get(`${conf.databaseUrl}response/get-response`, {
+                await axios.get(`${conf.databaseUrl}response/get-response`, {
                     headers: {
                         Authorization: `Bearer ${Cookies.get('accessToken')}`,
                     },
                 })
-                console.log(response);
+                    .then((response) => {
+                        console.log(response);
+                    })
             } catch (error) {
                 console.log("Error while fetching data: ", error);
             }

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import conf from '../conf/conf';
 import { logout } from '../store/features/authSlics';
+import { Wrapper } from '../components/common';
 
 
 function LandingPage() {
@@ -25,9 +26,9 @@ function LandingPage() {
             })
     }
     return (
-        <>
-            <div className=' h-auto'>
-                <section className="bg-gray-50">
+        <Wrapper>
+            <div className=' vh-100 h-100'>
+                <section className="">
                     <div className="mx-auto max-w-screen-xl px-4 py-2 lg:flex lg:h-screen lg:items-center">
                         <div className="mx-auto max-w-xl text-center">
                             <h1 className="text-3xl font-extrabold sm:text-5xl">Welcome to My
@@ -67,7 +68,7 @@ function LandingPage() {
 
 
             </div>
-        </>
+        </Wrapper >
     )
 }
 

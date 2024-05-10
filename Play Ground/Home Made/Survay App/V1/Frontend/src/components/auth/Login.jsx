@@ -37,7 +37,6 @@ function Login() {
             })
             .catch((err) => {
                 setAlertAppearence(true)
-                console.log("Error = ", err.message);
                 setAlertMessage({ color: "red", message: err.message })
                 setButtonAppearence(false)
                 setTimeout(() => {
@@ -45,9 +44,6 @@ function Login() {
                 }, 10000);
             })
     };
-
-
-
 
     return (
         <div>
@@ -84,6 +80,7 @@ function Login() {
                                     text="Login"
                                     type='submit'
                                     loadingText={buttonAppearence}
+                                    className='text-white'
                                 />
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     Not have an account?

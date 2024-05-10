@@ -7,10 +7,10 @@ import { Provider } from 'react-redux';
 import store from './store/store.js';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Signup, PageNotFound, Login, LandingPage, HomePage } from "./pages";
+import { Signup, PageNotFound, Login, LandingPage, HomePage, AdminDashboard } from "./pages";
 import AuthLayout from './components/auth/AuthLayout.jsx';
 
-import Card from './components/common/Card.jsx';
+// import Card from './components/common/Card.jsx';
 
 
 const router = createBrowserRouter([
@@ -25,10 +25,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/card",
+        path: "/admin",
         element: (
-          <AuthLayout>
-            <Card />
+          <AuthLayout path={"/admin"}>
+            <AdminDashboard />
           </AuthLayout>
         ),
       },
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: (
-          <AuthLayout >
+          <AuthLayout path={"/home"} >
             <HomePage />
           </AuthLayout>
         ),

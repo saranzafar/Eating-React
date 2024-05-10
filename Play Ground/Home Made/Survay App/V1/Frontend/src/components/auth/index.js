@@ -5,5 +5,5 @@ import AuthLayout from "./AuthLayout";
 export {
     Login,
     Signup,
-    AuthLayout
+    AuthLayout,
 }

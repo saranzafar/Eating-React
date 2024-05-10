@@ -4,6 +4,7 @@ import PageNotFound from "./PageNotFound";
 import Header from "./Header";
 import LandingPage from "./LandingPage";
 import HomePage from "./HomePage"
+import AdminDashboard from "./AdminDashboard";
 
 export {
     Signup,
@@ -12,4 +13,5 @@ export {
     Header,
     LandingPage,
     HomePage,
+    AdminDashboard,
 }
