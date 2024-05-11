@@ -30,8 +30,6 @@ const SurveyQuestion = () => {
                         },
                     })
                         .then((response) => {
-                            console.log("loaded");
-                            console.log("response =", response.data);
                             setLoading(false)
                             setAlertAppearence(true)
                             setAlertMessage({ color: "green", message: response.data.data })
@@ -57,12 +55,18 @@ const SurveyQuestion = () => {
     const loadQustions = () => {
         setQuestions(reduxQuestions)
         setBtnAppearence(true)
-        console.log("questions = ", reduxQuestions);
     }
 
     return (
-        loading ? <Loader /> :
-            < section className="max-w-6xl mx-auto mt-10 p-4  rounded-lg m-4" >
+        loading ?
+            <div className="text-center  mx-auto w-100">
+                <Loader />
+            </div>
+            :
+            < section className="max-w-6xl mx-auto mt-10 p-4 rounded-lg m-4" >
+                <h2
+                    className=" text-3xl font-bold text-center mb-8"
+                >Fill This Survey</h2>
                 <div>
                     {
                         alertAppearence ? (
@@ -103,20 +107,25 @@ const SurveyQuestion = () => {
                                                 htmlFor={`${option._id}`}
                                                 className="pl-4"
                                             >{option.optionText}</label>
-                                            <br className="mb-2"/>
+                                            <br className="mb-2" />
                                         </>
                                     ))}
                                 </div>
                             </div>
                         </>
                     )))}
-                    {btnAppearence &&
+                    {btnAppearence && question.length > 0 &&
                         <div className="">
                             <ButtonSm
                                 text="Submit"
                                 loadingText={false}
                                 className="text-white mt-1"
                             />
+                        </div>
+                    }
+                    {btnAppearence && !question.length > 0 &&
+                        <div className="text-xl text-center">
+                            Check your network and try again
                         </div>
                     }
                 </div>

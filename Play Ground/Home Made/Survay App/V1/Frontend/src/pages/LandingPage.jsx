@@ -20,7 +20,6 @@ function LandingPage() {
             .then((response) => {
                 sessionStorage.clear()
                 Cookies.remove("accessToken")
-                console.log(response.data);
                 dispatch(logout())
                 window.location.reload()
             })

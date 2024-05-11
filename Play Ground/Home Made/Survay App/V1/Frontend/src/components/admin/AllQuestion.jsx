@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import conf from "../../conf/conf";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { Alert, ButtonSm, Loader } from "../common";
+import { Alert, Loader } from "../common";
 import { useSelector, useDispatch } from "react-redux";
 import { question } from "../../store/features/authSlics";
+
 
 const AllQuestion = () => {
     const [loading, setLoading] = useState(false)
@@ -12,7 +13,6 @@ const AllQuestion = () => {
     const [btnAppearence, setBtnAppearence] = useState(false)
     const [alertMessage, setAlertMessage] = useState({ message: "", color: "" })
     const [questions, setQuestions] = useState([])
-    const [questionId, setQuestionId] = useState("")
 
     const dispatch = useDispatch()
     const reduxQuestions = useSelector(state => state.auth?.questions)
@@ -31,8 +31,6 @@ const AllQuestion = () => {
                         },
                     })
                         .then((response) => {
-                            console.log("loaded");
-                            console.log("response =", response.data);
                             setLoading(false)
                             setAlertAppearence(true)
                             setAlertMessage({ color: "green", message: response.data.data })
@@ -58,24 +56,36 @@ const AllQuestion = () => {
     const loadQustions = () => {
         setQuestions(reduxQuestions)
         setBtnAppearence(true)
-        console.log("questions = ", reduxQuestions);
     }
 
-    const handelBtnClick = async () => {
-        
-        await axios.get(`${conf.databaseUrl}admin//c/:${questionId}`, {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('accessToken')}`,
-            },
-        })
-            .then((response) => {
-                console.log("response =", response.data);
+    const handleDeleteQuestion = async (questionId) => {
+        try {
+            await axios.delete(`${conf.databaseUrl}admin/c/${questionId}`, {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('accessToken')}`,
+                },
             })
-    }
+                .then((response) => {
+                    setAlertAppearence(true)
+                    setAlertMessage({ color: "green", message: response.data.message })
+                    document.getElementById(questionId).innerHTML = "Please Reload"
+                    setTimeout(() => {
+                        setAlertAppearence(false)
+                    }, 5000);
+                })
+        } catch (error) {
+            setAlertAppearence(true)
+            setAlertMessage({ color: "red", message: error.message })
+            setTimeout(() => {
+                setAlertAppearence(false)
+            }, 10000);
+        }
+    };
+
     return (
         loading ? <Loader /> :
             < section className="max-w-6xl mx-auto mt-10 p-4  rounded-lg m-4" >
-                <div>
+                <div className="mb-4">
                     {
                         alertAppearence ? (
                             <Alert
@@ -93,16 +103,13 @@ const AllQuestion = () => {
                     </div>
                 }
 
-
                 <div>
                     {questions?.map(((question, index) => (
                         <>
                             <div
                                 key={index}
                                 className="border border-primary-300 p-4 rounded-xl hover:shadow-md">
-
                                 <strong key={question.question._id}>{index + 1}.{question.question}</strong>
-
                                 <div
                                     className="pl-8"
                                     key={"1" + index} >
@@ -115,14 +122,14 @@ const AllQuestion = () => {
                                     ))}
                                 </div>
                             </div>
+                            <span>{ }</span>
                             <div className="flex justify-end" key={"2" + index}>
-                                <ButtonSm
-                                    id={`${question.question._id}`}
-                                    text="Delete"
-                                    loadingText={false}
-                                    onClick={handelBtnClick}
-                                    className="text-red-500 bg-none bg-white hover:bg-red-50  focus:ring-red-50 dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-200 border border-red-500 mb-6 mt-1"
-                                />
+                                <button
+                                    id={question._id}
+                                    onClick={(e) => handleDeleteQuestion(e.currentTarget.id)}
+                                    className="text-red-500 bg-none bg-white hover:bg-red-50  focus:ring-red-50 dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-200 border border-red-500 mb-6 mt-1 p-1 px-2 rounded-lg"
+                                >delete</button>
+
                             </div>
                         </>
                     )))}
@@ -133,3 +140,4 @@ const AllQuestion = () => {
 };
 
 export default AllQuestion;
+

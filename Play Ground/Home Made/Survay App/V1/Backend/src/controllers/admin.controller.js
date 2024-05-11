@@ -65,8 +65,9 @@ const deleteQuestion = AsyncHandler(async (req, res) => {
 });
 
 const updateAdminInfo = AsyncHandler(async (req, res) => {
-    const { name, password, email } = req.body;
-    if (!(name || password || email)) {
+    const { name, email } = req.body;
+
+    if (!(name || email)) {
         throw new ApiError(400, "Please provide Data");
     }
 
@@ -76,13 +77,12 @@ const updateAdminInfo = AsyncHandler(async (req, res) => {
             $set:
             {
                 name,
-                password,
                 email,
                 role: true
             }
         },
         { new: true },
-    ).select("-password")
+    ).select("-password -_id -role -createdAt -refreshToken")
 
     return res.status(200)
         .json(new ApiResponse(200, user, "Account Details Updated Successfully"))

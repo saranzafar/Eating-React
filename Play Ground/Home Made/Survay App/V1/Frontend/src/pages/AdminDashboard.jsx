@@ -3,7 +3,7 @@ import { Input, Wrapper, ButtonSm, Alert } from '../components/common'
 import conf from '../conf/conf';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { AllQuestion } from '../components/admin';
+import { AllQuestion, UpdateInfo } from '../components/admin';
 
 function AdminDashboard() {
     const [question, setQuestion] = useState({
@@ -51,7 +51,7 @@ function AdminDashboard() {
         })
             .then((res) => {
                 setAlertAppearence(true)
-                setAlertMessage({ color: "black", message: res.data.data })
+                setAlertMessage({ color: "green", message: res.data.data })
                 setButtonAppearence(false)
                 setTimeout(() => {
                     setAlertAppearence(false)
@@ -70,6 +70,9 @@ function AdminDashboard() {
     return (
         <Wrapper>
             <main className='max-w-6xl mx-auto'>
+                <section>
+                    <UpdateInfo />
+                </section>
 
                 <section className="max-w-6xl mx-auto mt-10 p-4  rounded-lg m-4">
                     <h2 className="text-center text-4xl mb-4">Add Question</h2>
@@ -141,6 +144,7 @@ function AdminDashboard() {
                         </div>
                     </div>
                 </section>
+
             </main>
         </Wrapper>
     )

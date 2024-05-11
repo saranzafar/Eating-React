@@ -10,7 +10,7 @@ function Input({ type, eye, label, value, onChange, className, ...props }) {
     const capitalizedLabel = label ? label.charAt(0).toUpperCase() + label.slice(1) : type.charAt(0).toUpperCase() + type.slice(1);
 
     return (
-        <div className="relative mt-2 rounded-md shadow-sm">
+        <div className="relative mt-2 rounded-md">
             <label htmlFor={props.id} className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white `}>{capitalizedLabel}</label>
             <input
                 type={showPassword ? 'text' : type}

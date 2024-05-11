@@ -73,28 +73,23 @@ const registerUser = AsyncHandler(async (req, res) => {
 
 const loginUser = AsyncHandler(async (req, res) => {
     const { email, password } = req.body
-    const stripWhitespace = (str) => {
-        return str.replace(/\s/g, '');
-    };
-    const strippedPassword = stripWhitespace(password);
 
-    if (!(email || strippedPassword)) {
+    if (!(email || password)) {
         throw new ApiError(200, "Please enter your Email and Password!")
     }
-
     const user = await User.findOne({ email })
     if (!user) {
         throw new ApiError(200, "User does't exist")
     }
 
-    const isPasswordValid = await user.isPasswordCorrect(strippedPassword)
+    const isPasswordValid = await user.isPasswordCorrect(password)
     if (!isPasswordValid) {
         throw new ApiError(200, "Incorrect Password")
     }
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
     const logedinUser = await User.findById(user._id).
-        select("-password -refreshToken -_id -createdAt -updatedAt")
+        select("-password -refreshToken -_id -createdAt")
 
     const options = {
         httpOnly: true,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CheckCircle, X } from 'lucide-react'
 
-function Alert({ message = "Everything Is Ok", color = "green" }) {
+function Alert({ message = "Everything Is Ok", color = "green"}) {
     const [deleteAlert, setDeleteAlert] = useState(true);
     const handelClick = () => {
         setDeleteAlert(false);

@@ -22,7 +22,6 @@ function Signup() {
         setButtonAppearence(true)
         await axios.post(`${conf.databaseUrl}users/register`, formData)
             .then((response) => {
-                console.log("response.data = ", response.data);
                 setAlertAppearence(true)
                 setAlertMessage({ color: "green", message: response.data.data })
                 setButtonAppearence(false)
@@ -33,7 +32,6 @@ function Signup() {
             })
             .catch((err) => {
                 setAlertAppearence(true)
-                console.log("Error = ", err.message);
                 setAlertMessage({ color: "red", message: err.message })
                 setButtonAppearence(false)
                 setTimeout(() => {
