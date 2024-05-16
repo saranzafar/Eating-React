@@ -5,10 +5,6 @@ const responseSchema = new mongoose.Schema({
         type: Object,
         required: true
     },
-    selectedOption: {
-        type: Object,
-        required: true
-    },
     user: {
         type: Object,
         required: true

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import conf from "../../conf/conf";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -104,36 +104,25 @@ const AllQuestion = () => {
                 }
 
                 <div>
-                    {questions?.map(((question, index) => (
-                        <>
-                            <div
-                                key={index}
-                                className="border border-primary-300 p-4 rounded-xl hover:shadow-md">
-                                <strong key={question.question._id}>{index + 1}.{question.question}</strong>
-                                <div
-                                    className="pl-8"
-                                    key={"1" + index} >
-                                    {question.options.map((option) => (
-                                        <div
-                                            className="list-item "
-                                            key={option._id}
-                                        >
-                                            {option.optionText}</div>
-                                    ))}
-                                </div>
+                    {questions.map((question, index) => (
+                        <div key={index} className="border border-primary-300 p-4 rounded-xl hover:shadow-md my-5" >
+                            <strong>{index + 1}.{question.question}</strong>
+                            <div className="pl-8" >
+                                {question.options.map(option => (
+                                    <div className="list-item" key={option._id}>{option.optionText}</div>
+                                ))}
                             </div>
-                            <span>{ }</span>
-                            <div className="flex justify-end" key={"2" + index}>
+                            <div className="flex justify-end mt-1" key={`delete_${index}`}>
                                 <button
                                     id={question._id}
                                     onClick={(e) => handleDeleteQuestion(e.currentTarget.id)}
-                                    className="text-red-500 bg-none bg-white hover:bg-red-50  focus:ring-red-50 dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-200 border border-red-500 mb-6 mt-1 p-1 px-2 rounded-lg"
-                                >delete</button>
-
+                                    className="text-red-500 bg-none bg-white hover:bg-red-50 focus:ring-red-50 dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-200 border border-red-500 p-1 px-2 rounded-lg"
+                                >
+                                    delete
+                                </button>
                             </div>
-                        </>
-                    )))}
-
+                        </div>
+                    ))}
                 </div>
             </section >
     );

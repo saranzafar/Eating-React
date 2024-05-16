@@ -89,7 +89,7 @@ const loginUser = AsyncHandler(async (req, res) => {
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
     const logedinUser = await User.findById(user._id).
-        select("-password -refreshToken -_id -createdAt")
+        select("-password -_id -createdAt -refreshToken")
 
     const options = {
         httpOnly: true,
@@ -103,7 +103,7 @@ const loginUser = AsyncHandler(async (req, res) => {
             new ApiResponse(
                 200,
                 {
-                    user: logedinUser, accessToken
+                    user: logedinUser, accessToken, refreshToken
                 },
                 "User LoggedIn Successfully"
             )
@@ -138,6 +138,7 @@ const logoutUser = AsyncHandler(async (req, res) => {
 //need to search for it to use
 const refreshAccessToken = AsyncHandler(async (req, res) => {
     const incommingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
+
     if (!incommingRefreshToken) {
         throw new ApiError(401, "Unauthorized Access")
     }
@@ -156,15 +157,15 @@ const refreshAccessToken = AsyncHandler(async (req, res) => {
             throw new ApiError(401, "Refresh Token is Expired or used")
         }
 
-        const optinos = {
+        const options = {
             httpOnly: true,
             secure: true
         }
         const { accessToken, newRefreshToken } = await generateAccessAndRefreshTokens(user._id)
 
         return res.status(200)
-            .cookie("accessToken", accessToken, optinos)
-            .cookie("refreshToken", newRefreshToken, optinos)
+            .cookie("accessToken", accessToken, options)
+            .cookie("refreshToken", newRefreshToken, options)
             .json(
                 new ApiResponse(
                     200,

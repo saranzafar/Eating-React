@@ -22,7 +22,7 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 // Routes declaration
-app.use("/api/v1/users", userRoutes);//4avail - 3dn, done
+app.use("/api/v1/users", userRoutes);//4avail - 4, done
 app.use("/api/v1/admin", adminRoutes);//4avail - 4, done
 app.use("/api/v1/response", responseRoutes);//2 avail - 0
 

@@ -4,6 +4,7 @@ import Alert from './Alert'
 import Loader from "./Loader"
 import Wrapper from "./Wrapper";
 import SurveyQuestion from "./SurveyQuestions";
+import RefreshAccessToken from "./RefreshAccessToken";
 
 export {
     Input,
@@ -12,4 +13,5 @@ export {
     Alert,
     Wrapper,
     SurveyQuestion,
+    RefreshAccessToken,
 }

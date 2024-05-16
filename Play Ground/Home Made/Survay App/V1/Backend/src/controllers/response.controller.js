@@ -6,62 +6,64 @@ import { Answer } from "../models/response.model.js"
 import { User } from "../models/user.model.js"
 
 const setResponse = AsyncHandler(async (req, res) => {
-    try {
-        const { questionId, selectedOptionId } = req.body;
+    // try {
+        const { surveyData } = req.body;
         const userId = req.user._id;
 
-        if (!(questionId, selectedOptionId)) {
-            new ApiError(401, "Please Provide reqireData")
+        // Check if surveyData exists and is not empty
+        if (!surveyData || surveyData.length === 0) {
+            throw new ApiError(400, "Please provide survey data");
         }
 
-        // fetching question from DB
-        const question = await Question.findById(questionId)
-        if (!question) {
-            throw new ApiError(400, 'Question not found');
-        }
-
-        const selectedOption = await question.options.find(option => option._id.toString() === selectedOptionId);
-        if (!selectedOption) {
-            throw new ApiError(400, 'Selected option not found');
-        }
-
-        // fetching user from DB
+        // Fetch user from DB
         const userInfo = await User.findById(userId)
-            .select("-password -createdAt -updatedAt -refreshToken -role -name")
+            .select("-password -createdAt -updatedAt -refreshToken -role -name");
         if (!userInfo) {
-            throw new ApiError(400, 'Question not found');
+            throw new ApiError(400, 'User not found');
         }
 
+        // Check if the user has already submitted the form
+        const existingResponse = await Answer.findOne()
+        if (existingResponse) {
+            return res.status(200).json(
+                new ApiResponse(403, {}, "You Have Already Submitted the Form")
+            );
+        }
+
+        // Save survey data along with user information
         await Answer.create({
-            question: question,
-            selectedOption: selectedOption,
-            user: userInfo
-        })
+            user: userInfo,
+            question: surveyData
+        });
 
         return res.status(201).json(
-            new ApiResponse(200, {}, "Response added Successfully")
+            new ApiResponse(200, {}, "Survey response added successfully")
         );
-    } catch (error) {
-        throw new ApiError(501, 'Error While Saving Response to Database');
-    }
+    // } catch (error) {
+    //     console.error(error);
+    //     throw new ApiError(500, 'Error while saving survey response to database');
+    // }
 });
+
+
+
 
 const getResponse = AsyncHandler(async (req, res) => {
     // try {
-        // Fetch all responses from the database
-        const responses = await Answer.find()
-            .populate({
-                path: 'question',
-                select: 'question options', // Specify the fields to include from the related question document
-            })
+    // Fetch all responses from the database
+    const responses = await Answer.find()
+        .populate({
+            path: 'question',
+            select: 'question options', // Specify the fields to include from the related question document
+        })
 
-        // Check if there are any responses
-        if (!responses.length) {
-            return res.status(404).json(new ApiResponse(404, null, 'No responses found'));
-        }
+    // Check if there are any responses
+    if (!responses.length) {
+        return res.status(404).json(new ApiResponse(404, null, 'No responses found'));
+    }
 
-        // Return the responses
-        return res.status(200).json(new ApiResponse(200, responses, 'Responses fetched successfully'));
+    // Return the responses
+    return res.status(200).json(new ApiResponse(200, responses, 'Responses fetched successfully'));
     // }
 });
 
