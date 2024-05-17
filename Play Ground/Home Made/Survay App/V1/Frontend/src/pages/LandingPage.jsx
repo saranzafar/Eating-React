@@ -29,10 +29,9 @@ function LandingPage() {
     return (
         <>
             < Wrapper >
-                {storedData && <></>}
-                <div className=' vh-100 h-100'>
+                <div className='mt-10'>
                     <section className="">
-                        <div className="mx-auto max-w-screen-xl px-4 py-2 lg:flex lg:h-screen lg:items-center">
+                        <div className="mx-auto max-w-screen-xl px-4 py-2 lg:flex lg:items-center">
                             <div className="mx-auto max-w-xl text-center">
                                 <h1 className="text-3xl font-extrabold sm:text-5xl">Welcome to My
                                     <strong className="font-extrabold text-primary-700 sm:block">Survey App!</strong>
@@ -40,7 +39,7 @@ function LandingPage() {
                                 {storedData && <p className="mt-4 sm:text-xl/relaxed">
                                     Submint surveys on random, common, and interesting topics. Dive into my MERN-based platform to share insights. Join me in shaping conversations and uncovering trends with your engaging in this app.Click here to
                                     <span
-                                        className=' text-purple-700 cursor-pointer hover:underline'
+                                        className=' text-blue-600 cursor-pointer hover:underline pl-2 font-bold'
                                         onClick={handelLogout}
                                     >Logout</span>
                                 </p>}

@@ -10,13 +10,22 @@ function AuthLayout({ path, children }) {
     const token = Cookies.get("accessToken")
     const checkAdmin = JSON.parse(sessionStorage.getItem("userData"))?.role
     useEffect(() => {
-        if (checkAdmin == true && path == "/admin" && token) {
+        if (path == "/admin" && checkAdmin == true && token) {
             navigate("/admin")
         }
         else if ((path == "/admin" && checkAdmin == false && token)) {
             navigate("/home")
         } else if (path == "/admin" && checkAdmin == false && !token) {
             navigate('/signup')
+        }
+        else if (path == "/home" && token) {
+            navigate('/home')
+        }
+        else if (path == "/home" && !token) {
+            navigate('/')
+        }
+        else {
+            navigate('/')
         }
         setLoader(false)
     }, [path, navigate, token, checkAdmin])

@@ -66,6 +66,7 @@ const AllQuestion = () => {
                 },
             })
                 .then((response) => {
+                    
                     setAlertAppearence(true)
                     setAlertMessage({ color: "green", message: response.data.message })
                     document.getElementById(questionId).innerHTML = "Please Reload"

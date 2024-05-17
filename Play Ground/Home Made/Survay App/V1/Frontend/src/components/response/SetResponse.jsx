@@ -6,7 +6,7 @@ import { Alert, ButtonSm, Loader } from "../common";
 import { useSelector, useDispatch } from "react-redux";
 import { question } from "../../store/features/authSlics";
 
-const SurveyQuestion = () => {
+const SetResponse = () => {
     const [loading, setLoading] = useState(false);
     const [btnAppearence, setBtnAppearence] = useState(false);
     const [alertAppearence, setAlertAppearence] = useState(false);
@@ -75,8 +75,6 @@ const SurveyQuestion = () => {
         }
         setFormError("");
 
-        // Construct data with question and selected option
-
         const surveyData = questions.map((question, index) => ({
             question: question.question,
             options: question.options,
@@ -105,7 +103,6 @@ const SurveyQuestion = () => {
         } catch (error) {
             setBtnLoading(false)
             setAlertAppearence(true)
-            console.log("error = ", error);
             setAlertMessage({ color: "red", message: error.message });
             setTimeout(() => {
                 setAlertAppearence(false);
@@ -154,7 +151,7 @@ const SurveyQuestion = () => {
                                             className="text-primary-600 focus:outline-primary-600 rounded p-2"
                                             name={index}
                                             onChange={() => handleOptionSelect(index, option._id)}
-                                            required // Added required validation
+                                            required
                                         />
                                         <label
                                             htmlFor={option._id}
@@ -185,4 +182,4 @@ const SurveyQuestion = () => {
     );
 };
 
-export default SurveyQuestion;
+export default SetResponse;

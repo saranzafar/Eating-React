@@ -27,7 +27,6 @@ function Login() {
             .then((response) => {
                 Cookies.set('accessToken', response.data?.message?.accessToken, { expires: 1 });
                 Cookies.set('refreshToken', response.data?.message?.refreshToken, { expires: 7 });
-                console.log(response.data);
                 setAlertAppearence(true)
                 setAlertMessage({ color: "green", message: response.data.data })
                 setButtonAppearence(false)

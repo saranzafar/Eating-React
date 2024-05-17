@@ -4,6 +4,7 @@ import conf from '../conf/conf';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { AllQuestion, UpdateInfo } from '../components/admin';
+import GetResponse from '../components/response/GetResponse';
 
 function AdminDashboard() {
     const [question, setQuestion] = useState({
@@ -90,7 +91,7 @@ function AdminDashboard() {
                             className="mb-4  hover:shadow-lg"
                         />
 
-                        {question.options.map((option, index) => (
+                        {question.options?.map((option, index) => (
                             <Input
                                 key={`option-${index}`}
                                 type="text"
@@ -129,17 +130,10 @@ function AdminDashboard() {
                         </div>
                         <div className="p-4 border border-primary-400 mb-8 rounded-b-lg">
                             {activeTab === 'questions' && (
-                                <>
-                                    <AllQuestion />
-                                </>
+                                <AllQuestion />
                             )}
                             {activeTab === 'responses' && (
-                                <>
-                                    <div className="mb-4">
-                                        <p className="text-lg font-semibold">Response 1</p>
-                                        <p className="text-gray-800">This is a response to question 1.</p>
-                                    </div>
-                                </>
+                                <GetResponse />
                             )}
                         </div>
                     </div>
