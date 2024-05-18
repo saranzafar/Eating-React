@@ -17,7 +17,7 @@ const app = express();
 
 // for deployment 
 app.use(cors({
-    origin: ["https://survey-app-sage.vercel.app"],
+    origin: "https://survey-app-sage.vercel.app",
     methods: ["GET", "POST", "DELETE"],
     credentials: true
 }));
@@ -30,8 +30,8 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 // Routes declaration
-app.use("/api/v1/users", userRoutes);//4avail - 4, done
-app.use("/api/v1/admin", adminRoutes);//4avail - 4, done
-app.use("/api/v1/response", responseRoutes);//2 avail - 1
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/response", responseRoutes);
 
 export { app };
