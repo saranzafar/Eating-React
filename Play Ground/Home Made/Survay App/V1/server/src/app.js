@@ -9,17 +9,15 @@ import responseRoutes from "./routes/response.routes.js"
 
 const app = express();
 
-//for localhost
-// app.use(cors({
-//     origin: process.env.CORS_ORIGIN,
-//     credentials: true
-// }));
-
-// for deployment 
+// CORS configuration for deployment
 app.use(cors({
+<<<<<<< HEAD
     origin: "https://survey-app-sage.vercel.app",
+=======
+    origin: "*", // Set the allowed origin
+>>>>>>> f7e80319a7cc3773a2f921dcb16a092b526ee886
     methods: ["GET", "POST", "DELETE"],
-    credentials: true
+    credentials: true // Allow credentials (cookies, authorization headers, TLS client certificates)
 }));
 
 // Using built-in Express middleware for parsing JSON and URL-encoded bodies
