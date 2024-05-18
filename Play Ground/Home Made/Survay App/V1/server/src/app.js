@@ -9,8 +9,16 @@ import responseRoutes from "./routes/response.routes.js"
 
 const app = express();
 
+//for localhost
+// app.use(cors({
+//     origin: process.env.CORS_ORIGIN,
+//     credentials: true
+// }));
+
+// for deployment 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: ["https://survey-app-sage.vercel.app/"],
+    methods: ["GET", "POST", "DELETE"],
     credentials: true
 }));
 
