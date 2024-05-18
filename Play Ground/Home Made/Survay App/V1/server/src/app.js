@@ -11,11 +11,8 @@ const app = express();
 
 // CORS configuration for deployment
 app.use(cors({
-<<<<<<< HEAD
-    origin: "https://survey-app-sage.vercel.app",
-=======
+    // origin: "https://survey-app-sage.vercel.app",
     origin: "*", // Set the allowed origin
->>>>>>> f7e80319a7cc3773a2f921dcb16a092b526ee886
     methods: ["GET", "POST", "DELETE"],
     credentials: true // Allow credentials (cookies, authorization headers, TLS client certificates)
 }));
