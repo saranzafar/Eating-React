@@ -17,10 +17,11 @@ const app = express();
 
 // for deployment 
 app.use(cors({
-    origin: ["https://survey-app-sage.vercel.app"],
+    origin: "https://survey-app-sage.vercel.app", // remove trailing slash
     methods: ["GET", "POST", "DELETE"],
     credentials: true
 }));
+
 
 // Using built-in Express middleware for parsing JSON and URL-encoded bodies
 app.use(express.json({ limit: "16kb" }));
