@@ -9,20 +9,28 @@ import responseRoutes from "./routes/response.routes.js"
 
 const app = express();
 
-//for localhost
-// app.use(cors({
-//     origin: process.env.CORS_ORIGIN,
-//     credentials: true
-// }));
+// Middleware to log requests for debugging
+app.use((req, res, next) => {
+    console.log(`Incoming request: ${req.method} ${req.url}`);
+    console.log(`Request origin: ${req.headers.origin}`);
+    next();
+});
 
-// for deployment 
+// CORS configuration for deployment
 app.use(cors({
-    origin: "*", // only for testing
+    origin: "https://survey-app-sage.vercel.app", // Set the allowed origin
     methods: ["GET", "POST", "DELETE"],
-    credentials: true // this should be false if using wildcard origin
+    credentials: true // Allow credentials (cookies, authorization headers, TLS client certificates)
 }));
 
-
+// Manually handle preflight requests for better control
+app.options('*', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "https://survey-app-sage.vercel.app");
+    res.header("Access-Control-Allow-Methods", "GET, POST, DELETE");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.sendStatus(200);
+});
 
 // Using built-in Express middleware for parsing JSON and URL-encoded bodies
 app.use(express.json({ limit: "16kb" }));
@@ -32,8 +40,8 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 // Routes declaration
-app.use("/api/v1/users", userRoutes);//4avail - 4, done
-app.use("/api/v1/admin", adminRoutes);//4avail - 4, done
-app.use("/api/v1/response", responseRoutes);//2 avail - 1
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/response", responseRoutes);
 
 export { app };
