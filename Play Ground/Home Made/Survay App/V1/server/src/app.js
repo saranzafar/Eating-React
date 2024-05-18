@@ -17,7 +17,7 @@ const app = express();
 
 // for deployment 
 app.use(cors({
-    origin: ["https://survey-app-sage.vercel.app/"],
+    origin: ["https://survey-app-sage.vercel.app"],
     methods: ["GET", "POST", "DELETE"],
     credentials: true
 }));
