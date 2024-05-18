@@ -4,17 +4,16 @@ import cookieParser from 'cookie-parser';
 
 // Importing routes
 import userRoutes from "./routes/user.routes.js";
-import adminRoutes from './routes/admin.routes.js'
-import responseRoutes from "./routes/response.routes.js"
+import adminRoutes from './routes/admin.routes.js';
+import responseRoutes from "./routes/response.routes.js";
 
 const app = express();
 
 // CORS configuration for deployment
 app.use(cors({
-    // origin: "https://survey-app-sage.vercel.app",
-    origin: "*", // Set the allowed origin
+    origin: process.env.CORS_ORIGIN || "*", // Secure this for production
     methods: ["GET", "POST", "DELETE"],
-    credentials: true // Allow credentials (cookies, authorization headers, TLS client certificates)
+    credentials: true
 }));
 
 // Using built-in Express middleware for parsing JSON and URL-encoded bodies
