@@ -28,4 +28,8 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/response", responseRoutes);
 
+app.get("/", (req, res) => {
+    res.json("Hello");
+})
+
 export { app };
