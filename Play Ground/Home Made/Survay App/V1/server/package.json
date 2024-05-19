@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js",
-        "start": "npm run dev"
+        "start": "node src/index.js"
     },
     "author": "saran zafar",
     "license": "ISC",
